@@ -1,4 +1,4 @@
-const API = window.location.port === "3000" ? "/api" : "http://localhost:3000/api"
+const API = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "/api"
 let isPostingJob = false
 
 function getToken() {
@@ -512,3 +512,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 })
+
