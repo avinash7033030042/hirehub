@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Post Job</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body class="authPage" onload="checkAuth()">
+<div class="authShell">
+    <section class="card authHero">
+        <h1>Create A New Job Post</h1>
+        <p>Job details strong rakho taaki right applicants fast milein.</p>
+        <div class="pillRow">
+            <span class="pill">Role</span>
+            <span class="pill">Location</span>
+            <span class="pill">Salary</span>
+            <span class="pill">Description</span>
+        </div>
+    </section>
+
+    <section class="card authCard">
+        <h2>Post Job</h2>
+        <p class="subText">Only recruiter role can publish jobs.</p>
+        <input id="jobTitle" placeholder="Job Title (e.g. Frontend Developer)">
+        <input id="jobCompany" placeholder="Company Name">
+        <input id="jobLocation" placeholder="Location (e.g. Delhi / Remote)">
+        <input id="jobSalary" placeholder="Salary (e.g. 8 LPA)">
+        <textarea id="jobDescription" rows="4" placeholder="Job Description"></textarea>
+
+        <div class="actions">
+            <button id="postJobBtn" type="button">Post Job</button>
+            <button type="button" class="secondaryBtn" onclick="window.location.href='dashboard.html'">Back</button>
+        </div>
+        <button type="button" class="logoutBtn" onclick="logout()">Logout</button>
+    </section>
+    </div>
+<script src="script.js?v=13"></script>
+</body>
+</html>

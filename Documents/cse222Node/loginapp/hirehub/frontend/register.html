@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body class="authPage">
+<div class="authShell">
+    <section class="card authHero">
+        <h1>Create Your HireHub Account</h1>
+        <p>Choose your role and use recruiter/jobseeker dashboard features.</p>
+        <div class="pillRow">
+            <span class="pill">Role Based Access</span>
+            <span class="pill">Resume Upload</span>
+            <span class="pill">Job Search Filters</span>
+        </div>
+    </section>
+
+    <section class="card authCard">
+        <h2>Create Account</h2>
+        <p class="subText">Fill in your basic details.</p>
+        <input id="name" placeholder="Name">
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <select id="role">
+            <option value="jobseeker">Job Seeker</option>
+            <option value="recruiter">Recruiter</option>
+        </select>
+        <button type="button" onclick="register()">Register</button>
+        <p>Already have account? <a href="login.html">Login</a></p>
+    </section>
+</div>
+<script src="script.js?v=13"></script>
+</body>
+</html>

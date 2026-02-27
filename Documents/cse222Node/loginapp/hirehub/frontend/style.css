@@ -1,0 +1,447 @@
+:root {
+    --bg-1: #061326;
+    --bg-2: #102f61;
+    --bg-3: #173f7a;
+    --panel: rgba(10, 26, 56, 0.74);
+    --panel-soft: rgba(15, 38, 76, 0.62);
+    --line: rgba(170, 200, 255, 0.22);
+    --text: #f4f8ff;
+    --muted: #b7c8ef;
+    --accent: #ff5d3f;
+    --accent-2: #4f46e5;
+    --accent-3: #0f172a;
+    --glow-a: rgba(91, 143, 255, 0.35);
+    --glow-b: rgba(126, 86, 255, 0.28);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    padding: 24px 12px 30px;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(85, 146, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(121, 75, 255, 0.24), transparent 28%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body.authPage {
+    align-items: center;
+    padding: 18px 12px;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+body::before {
+    background: var(--glow-a);
+    top: -120px;
+    left: -80px;
+    animation: driftA 8s ease-in-out infinite alternate;
+}
+
+body::after {
+    background: var(--glow-b);
+    right: -100px;
+    top: 40px;
+    animation: driftB 9s ease-in-out infinite alternate;
+}
+
+.appFrame {
+    width: min(1240px, 98vw);
+    display: grid;
+    gap: 14px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 34px rgba(3, 10, 28, 0.42);
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.1), transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+}
+
+.card:hover::after {
+    transform: translateX(120%);
+}
+
+.authShell {
+    width: min(700px, 94vw);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: start;
+}
+
+.authHero {
+    background:
+        linear-gradient(170deg, rgba(18, 44, 88, 0.86), rgba(12, 32, 66, 0.86)),
+        radial-gradient(circle at 20% 20%, rgba(80, 132, 255, 0.25), transparent 38%);
+}
+
+.authHero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+    line-height: 1.08;
+}
+
+.authHero p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+.pillRow {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pill {
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(176, 202, 255, 0.34);
+    color: #dbe8ff;
+    font-size: 0.82rem;
+}
+
+.authCard {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.brandTitle {
+    margin: 0 0 6px;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.startCard {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.startActions {
+    flex-direction: column;
+    gap: 12px;
+    width: min(520px, 100%);
+}
+
+.startActions button {
+    width: 100%;
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 1.9rem;
+    letter-spacing: 0.3px;
+}
+
+h3 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+}
+
+.subText {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 0.94rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 12px 13px;
+    margin: 7px 0;
+    font: inherit;
+    background: rgba(255, 255, 255, 0.93);
+    color: #0f172a;
+    outline: none;
+    transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(96, 165, 250, 0.72);
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+    transform: translateY(-1px);
+}
+
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, var(--accent), #ff7a40);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+    box-shadow: 0 8px 18px rgba(255, 93, 63, 0.28);
+}
+
+button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow: 0 10px 22px rgba(255, 93, 63, 0.36);
+}
+
+a {
+    color: #c8dcff;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.actions button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.secondaryBtn {
+    background: linear-gradient(135deg, var(--accent-2), #6f67ff);
+    box-shadow: 0 8px 18px rgba(90, 82, 255, 0.3);
+}
+
+.logoutBtn {
+    background: linear-gradient(135deg, var(--accent-3), #1e293b);
+    box-shadow: 0 8px 16px rgba(10, 16, 33, 0.4);
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.topActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge {
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(79, 70, 229, 0.24);
+    border: 1px solid rgba(164, 151, 255, 0.45);
+    font-size: 0.85rem;
+    text-transform: capitalize;
+}
+
+.stackLayout {
+    display: grid;
+    gap: 12px;
+}
+
+.quickRow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 980px) {
+    .quickRow {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.panel {
+    background: var(--panel-soft);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panel:hover {
+    transform: translateY(-2px);
+    border-color: rgba(180, 208, 255, 0.35);
+    box-shadow: 0 14px 24px rgba(4, 14, 34, 0.32);
+}
+
+.sectionHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.miniBtn {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+}
+
+#jobs,
+#notifications,
+#recruiterApplications,
+#myApplications {
+    display: grid;
+    gap: 9px;
+}
+
+.quickFeed {
+    max-height: 170px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.quickFeed::-webkit-scrollbar {
+    width: 6px;
+}
+
+.quickFeed::-webkit-scrollbar-thumb {
+    background: rgba(155, 181, 233, 0.45);
+    border-radius: 999px;
+}
+
+.jobCard {
+    background: rgba(7, 22, 49, 0.86);
+    border: 1px solid rgba(137, 178, 255, 0.22);
+    border-radius: 14px;
+    padding: 14px;
+    position: relative;
+}
+
+.jobCard::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #7ea8ff, #5a7cff);
+}
+
+.jobCard h3 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+}
+
+.jobCard p {
+    margin: 5px 0;
+    color: #d7e4ff;
+}
+
+.applyBtn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.miniCard {
+    background: rgba(7, 22, 49, 0.85);
+    border: 1px solid rgba(137, 178, 255, 0.2);
+    border-radius: 12px;
+    padding: 9px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.miniCard:hover {
+    border-color: rgba(160, 196, 255, 0.36);
+    transform: translateY(-1px);
+}
+
+.miniCard p {
+    margin: 4px 0;
+    font-size: 0.93rem;
+}
+
+.miniCard.unread {
+    border-color: rgba(255, 93, 63, 0.82);
+}
+
+.miniActions {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.miniActions button {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+}
+
+.resumeLink {
+    margin-top: 8px;
+    display: none;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 13px;
+    border-radius: 12px;
+    border: 1px dashed rgba(165, 191, 245, 0.45);
+    color: #d9e8ff;
+}
+
+@keyframes driftA {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(35px, 30px, 0);
+    }
+}
+
+@keyframes driftB {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-28px, 24px, 0);
+    }
+}

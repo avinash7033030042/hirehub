@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Job Portal</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body onload="initDashboard()">
+<div class="appFrame">
+<div class="card wideCard">
+    <div class="topBar">
+        <div>
+            <h2>HireHub Dashboard</h2>
+            <p class="subText">Welcome <strong id="welcomeName">User</strong></p>
+        </div>
+        <div class="topActions">
+            <span id="roleBadge" class="badge">jobseeker</span>
+            <button id="logoutBtn" type="button" class="logoutBtn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="stackLayout">
+        <div class="quickRow">
+            <div class="panel quickPanel">
+                <div class="sectionHead">
+                    <h3>Notifications</h3>
+                    <button id="markAllBtn" type="button" class="secondaryBtn miniBtn">Mark All Read</button>
+                </div>
+                <div id="notifications" class="quickFeed"></div>
+            </div>
+
+            <div class="panel quickPanel recruiterOnly">
+                <div class="sectionHead">
+                    <h3>Received Apps</h3>
+                    <button id="refreshReceivedBtn" type="button" class="secondaryBtn miniBtn">Refresh</button>
+                </div>
+                <div id="recruiterApplications" class="quickFeed"></div>
+            </div>
+
+            <div class="panel quickPanel seekerOnly">
+                <h3>My Applications</h3>
+                <div id="myApplications" class="quickFeed"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>Search Jobs</h3>
+            <input id="searchTitle" placeholder="Title (e.g. Java Intern)">
+            <input id="searchLocation" placeholder="Location/State (e.g. UP, Delhi)">
+            <input id="searchCompany" placeholder="Company (optional)">
+            <input id="minSalary" type="number" placeholder="Min Salary (e.g. 600000)">
+            <div class="actions">
+                <button id="searchBtn" type="button" onclick="searchJobs()">Search</button>
+                <button id="clearBtn" type="button" class="secondaryBtn" onclick="clearSearch(event)">Clear</button>
+            </div>
+            <button class="recruiterOnly secondaryBtn" type="button" onclick="window.location.href='postjob.html'">Post New Job</button>
+        </div>
+
+        <div class="panel">
+            <h3>Profile & Resume</h3>
+            <div class="seekerOnly">
+                <input id="resumeFile" type="file" accept=".pdf,.doc,.docx">
+                <button id="resumeBtn" type="button">Upload Resume</button>
+                <a id="resumeLink" class="resumeLink" target="_blank" rel="noreferrer">View Uploaded Resume</a>
+            </div>
+            <div class="recruiterOnly">
+                <p class="subText">As recruiter, you can post jobs and receive applicant notifications.</p>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="sectionHead">
+                <h3>Available Jobs</h3>
+            </div>
+            <div id="jobs"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="script.js?v=13"></script>
+</body>
+</html>

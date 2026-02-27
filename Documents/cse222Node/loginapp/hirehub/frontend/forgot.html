@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Forgot Password</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body class="authPage">
+<div class="authShell">
+    <section class="card authHero">
+        <h1>🔁 Forgot Password</h1>
+        <p>Enter your registered email and set a new password directly.</p>
+    </section>
+
+    <section class="card authCard">
+        <h2>🔒 Reset Password</h2>
+        <p class="subText">Simple reset without email link.</p>
+        <input id="email" type="email" placeholder="Enter your email">
+        <input id="newPassword" type="password" placeholder="Enter new password">
+        <button id="sendResetBtn" type="button">✅ Update Password</button>
+        <p><a href="login.html">⬅️ Back to Login</a></p>
+        <p id="forgotMsg" class="subText"></p>
+    </section>
+</div>
+
+<script>
+const API = window.location.port === "3000" ? "/api" : "http://localhost:3000/api"
+
+async function sendResetLink() {
+    const email = document.getElementById("email")?.value?.trim()?.toLowerCase() || ""
+    const password = document.getElementById("newPassword")?.value || ""
+    const msgEl = document.getElementById("forgotMsg")
+
+    if (!email || !password) {
+        if (msgEl) msgEl.textContent = "⚠️ Email and new password are required."
+        return
+    }
+    if (password.length < 6) {
+        if (msgEl) msgEl.textContent = "⚠️ Password must be at least 6 characters."
+        return
+    }
+
+    try {
+        const res = await fetch(`${API}/auth/reset-password-direct`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        })
+        const data = await res.json().catch(() => ({}))
+        if (msgEl) msgEl.textContent = res.ok
+            ? (data.msg || "✅ Password updated.")
+            : (data.msg || "❌ Password update failed.")
+        if (res.ok) {
+            document.getElementById("email").value = ""
+            document.getElementById("newPassword").value = ""
+            setTimeout(() => {
+                window.location.href = "login.html"
+            }, 1000)
+        }
+    } catch {
+        if (msgEl) msgEl.textContent = "❌ Network error. Please try again."
+    }
+}
+
+document.getElementById("sendResetBtn")?.addEventListener("click", sendResetLink)
+document.getElementById("email")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendResetLink()
+})
+document.getElementById("newPassword")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendResetLink()
+})
+</script>
+</body>
+</html>
