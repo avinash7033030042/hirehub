@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="portalPage" data-page="profile" onload="initProfilePage()">
+<div class="portalShell">
+    <aside class="portalSidebar">
+        <a href="dashboard.html" class="portalBrand">
+            <img class="brandLogoMark" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+        </a>
+
+        <div class="portalUser">
+            <div id="sidebarUserInitials" class="portalAvatar">HH</div>
+            <div>
+                <p id="sidebarUserName" class="portalUserName">User</p>
+                <p id="sidebarUserRole" class="portalUserRole">Job Seeker</p>
+            </div>
+        </div>
+
+        <nav class="portalNav">
+            <a href="dashboard.html" class="portalNavLink" data-nav="overview">Overview</a>
+            <a href="jobs.html" class="portalNavLink" data-nav="jobs">Jobs</a>
+            <a href="applications.html" class="portalNavLink" data-nav="applications">Applications</a>
+            <a href="notifications.html" class="portalNavLink" data-nav="notifications">Notifications</a>
+            <a href="profile.html" class="portalNavLink" data-nav="profile">Profile</a>
+            <a href="postjob.html" class="portalNavLink recruiterOnly" data-nav="postjob">Post Job</a>
+        </nav>
+
+        <button id="logoutBtn" type="button" class="logoutBtn portalLogout">Log out</button>
+    </aside>
+
+    <main class="portalMain">
+        <header class="portalHeader portalHero">
+            <div>
+                <p class="portalLabel">Profile</p>
+                <h1>Your Profile</h1>
+                <p class="subText">Add your details, update your photo, and keep your account ready for work.</p>
+            </div>
+
+            <div class="portalHeaderMeta">
+                <span id="portalDate" class="metaPill">Today</span>
+                <span id="roleBadge" class="badge">Job Seeker</span>
+            </div>
+        </header>
+
+        <div class="profilePageGrid profilePageGridLarge">
+            <section class="portalCard profileHeroCard">
+                <div class="profileImageWrap">
+                    <div id="profileImagePreview" class="profileImagePreview">HH</div>
+                    <div>
+                        <h2 id="profilePageName">User</h2>
+                        <p id="profileHeadlineText" class="panelIntro">Add a headline to introduce yourself.</p>
+                    </div>
+                </div>
+
+                <div class="formGroup">
+                    <label class="formLabel" for="avatarFile">Profile image</label>
+                    <input id="avatarFile" type="file" accept="image/*">
+                </div>
+                <button id="avatarBtn" type="button" class="fullBtn">Upload Image</button>
+            </section>
+
+            <section class="portalCard profileFormCard">
+                <div class="sectionHead sectionHeadTop">
+                    <div>
+                        <h2>Edit Details</h2>
+                        <p class="panelIntro">Update the information shown on your profile.</p>
+                    </div>
+                </div>
+
+                <div class="formGridLarge">
+                    <div class="formGroup">
+                        <label class="formLabel" for="profileNameInput">Full name</label>
+                        <input id="profileNameInput" placeholder="Your name">
+                    </div>
+                    <div class="formGroup">
+                        <label class="formLabel" for="profilePhoneInput">Phone</label>
+                        <input id="profilePhoneInput" placeholder="Phone number">
+                    </div>
+                    <div class="formGroup">
+                        <label class="formLabel" for="profileLocationInput">Location</label>
+                        <input id="profileLocationInput" placeholder="City, country">
+                    </div>
+                    <div class="formGroup">
+                        <label class="formLabel" for="profileCompanyInput">Company / College</label>
+                        <input id="profileCompanyInput" placeholder="Company or college">
+                    </div>
+                    <div class="formGroup">
+                        <label class="formLabel" for="profileHeadlineInput">Headline</label>
+                        <input id="profileHeadlineInput" placeholder="Frontend developer, recruiter, student...">
+                    </div>
+                    <div class="formGroup">
+                        <label class="formLabel" for="profileWebsiteInput">Website / LinkedIn</label>
+                        <input id="profileWebsiteInput" placeholder="https://example.com">
+                    </div>
+                </div>
+
+                <div class="formGroup">
+                    <label class="formLabel" for="profileSkillsInput">Skills</label>
+                    <input id="profileSkillsInput" placeholder="React, Node.js, hiring, communication">
+                </div>
+
+                <div class="formGroup">
+                    <label class="formLabel" for="profileBioInput">About</label>
+                    <textarea id="profileBioInput" placeholder="Write a short profile summary"></textarea>
+                </div>
+
+                <div class="actions">
+                    <button id="profileSaveBtn" type="button">Save Profile</button>
+                    <button id="profileResetBtn" type="button" class="ghostActionBtn">Reset</button>
+                </div>
+            </section>
+
+            <section class="portalCard">
+                <h2>Account Details</h2>
+                <div class="detailList">
+                    <div class="detailRow">
+                        <span>Email</span>
+                        <strong id="profilePageEmail">-</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Role</span>
+                        <strong id="profilePageRole">Job Seeker</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Joined</span>
+                        <strong id="profilePageJoined">-</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Status</span>
+                        <strong id="profileResumeStatus">Resume pending</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Phone</span>
+                        <strong id="profilePhoneText">-</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Location</span>
+                        <strong id="profileLocationText">-</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Company / College</span>
+                        <strong id="profileCompanyText">-</strong>
+                    </div>
+                    <div class="detailRow">
+                        <span>Website</span>
+                        <strong id="profileWebsiteText">-</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="portalCard">
+                <h2>About</h2>
+                <p id="profileBioText" class="profileLongText">No profile summary added yet.</p>
+                <h3>Skills</h3>
+                <div id="profileSkillsList" class="skillPillRow"></div>
+            </section>
+
+            <section class="portalCard seekerOnly">
+                <h2>Resume</h2>
+                <p class="panelIntro">Upload and manage your resume here.</p>
+                <div class="formGroup">
+                    <label class="formLabel" for="resumeFile">Resume file</label>
+                    <input id="resumeFile" type="file" accept=".pdf,.doc,.docx">
+                </div>
+                <div class="actions">
+                    <button id="resumeBtn" type="button">Upload Resume</button>
+                    <a id="resumeLink" class="heroActionBtn ghostActionBtn" target="_blank" rel="noreferrer">View Resume</a>
+                </div>
+            </section>
+
+            <section class="portalCard recruiterOnly">
+                <h2>Recruiter Account</h2>
+                <p class="panelIntro">Use your profile details to help candidates understand who is hiring and where to connect.</p>
+                <div class="actions">
+                    <a href="postjob.html" class="heroActionBtn">Post Job</a>
+                    <a href="applications.html" class="heroActionBtn secondaryBtn">View Candidates</a>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script src="script.js?v=21"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reset Password</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="authPage">
+<div class="authShell">
+    <section class="card authHero">
+        <h1>🔐 Reset Your Password</h1>
+        <p>Enter a new password to update your account.</p>
+    </section>
+
+    <section class="card authCard">
+        <h2>🔑 Set New Password</h2>
+        <p class="subText">Password should be at least 6 characters.</p>
+        <input id="newPassword" type="password" placeholder="New Password">
+        <button id="resetBtn" type="button">✅ Reset Password</button>
+        <p><a href="login.html">⬅️ Back to Login</a></p>
+        <p id="resetMsg" class="subText"></p>
+    </section>
+</div>
+
+<script>
+const hostname = window.location.hostname
+const isLocalFrontend = !hostname || ["localhost", "127.0.0.1", "::1"].includes(hostname)
+const API = isLocalFrontend ? "http://localhost:3000/api" : "/api"
+
+function getTokenFromQuery() {
+    const params = new URLSearchParams(window.location.search)
+    return params.get("token") || ""
+}
+
+async function resetPassword() {
+    const token = getTokenFromQuery()
+    const password = document.getElementById("newPassword")?.value || ""
+    const msgEl = document.getElementById("resetMsg")
+
+    if (!token) {
+        if (msgEl) msgEl.textContent = "❌ Invalid or missing reset token."
+        return
+    }
+    if (password.length < 6) {
+        if (msgEl) msgEl.textContent = "⚠️ Password must be at least 6 characters."
+        return
+    }
+
+    try {
+        const res = await fetch(`${API}/auth/reset-password/${token}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password })
+        })
+        const data = await res.json().catch(() => ({}))
+        if (res.ok) {
+            if (msgEl) msgEl.textContent = "✅ Password reset successful. Redirecting to login..."
+            setTimeout(() => {
+                window.location.href = "login.html"
+            }, 1200)
+        } else {
+            if (msgEl) msgEl.textContent = data.msg || "❌ Reset failed. Token may be expired."
+        }
+    } catch {
+        if (msgEl) msgEl.textContent = "❌ Network error. Please try again."
+    }
+}
+
+document.getElementById("resetBtn")?.addEventListener("click", resetPassword)
+document.getElementById("newPassword")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") resetPassword()
+})
+</script>
+</body>
+</html>
+

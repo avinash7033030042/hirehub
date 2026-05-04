@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="authPage authMinimalPage">
+<section class="card authSoloCard">
+    <div class="authLogoBlock">
+        <img class="authLogoImage" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+    </div>
+
+    <div class="authSoloHeader">
+        <h1>Login</h1>
+    </div>
+
+    <div class="formGroup">
+        <label class="formLabel" for="email">Email</label>
+        <input id="email" type="email" placeholder="you@example.com">
+    </div>
+
+    <div class="formGroup">
+        <label class="formLabel" for="password">Password</label>
+        <div class="passwordField">
+            <input id="password" type="password" placeholder="Enter password">
+            <button type="button" class="ghostIconBtn passwordToggle" aria-label="Show password" onclick="togglePassword('password', this)"><span class="eyeIcon"></span></button>
+        </div>
+    </div>
+
+    <div class="formGroup">
+        <label class="formLabel" for="role">Role</label>
+        <select id="role">
+            <option value="jobseeker">Job Seeker</option>
+            <option value="recruiter">Recruiter</option>
+        </select>
+    </div>
+
+    <button type="button" class="fullBtn" onclick="login()">Log In</button>
+
+    <div class="authMetaLinks">
+        <a href="forgot.html">Forgot password?</a>
+        <a href="register.html">Create account</a>
+    </div>
+</section>
+<script src="script.js?v=21"></script>
+</body>
+</html>

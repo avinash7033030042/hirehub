@@ -1,0 +1,35 @@
+<svg width="900" height="620" viewBox="0 0 900 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+    <title id="title">Hire Hub</title>
+    <desc id="desc">Hire Hub logo with blue arrows, gold star, and the tagline Connecting Talent with Opportunity.</desc>
+    <rect width="900" height="620" rx="34" fill="#F8FBFF"/>
+
+    <g transform="translate(306 70)">
+        <path d="M67 255V98H26L91 18L156 98H119V255H67Z" fill="url(#leftGrad)"/>
+        <path d="M181 255V179C181 138 214 105 255 105C296 105 329 138 329 179C329 220 296 253 255 253H226V196H255C264 196 271 188 271 179C271 170 264 162 255 162C246 162 239 170 239 179V255H181Z" fill="url(#rightGrad)"/>
+        <path d="M57 232C104 151 159 126 220 125L207 90L288 137L232 211L224 176C168 183 126 206 83 268L57 232Z" fill="#2F80ED"/>
+        <path d="M57 232C104 151 159 126 220 125L207 90L288 137L232 211L224 176C168 183 126 206 83 268L57 232Z" fill="url(#arrowShade)" opacity="0.55"/>
+        <path d="M258 78L272 110L304 124L272 138L258 170L244 138L212 124L244 110L258 78Z" fill="#FFB02E"/>
+    </g>
+
+    <text x="450" y="454" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="104" font-weight="300" fill="#123E77">
+        <tspan font-weight="800">Hire</tspan><tspan> Hub</tspan>
+    </text>
+    <text x="450" y="514" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="500" fill="#6C7480">
+        Connecting Talent with Opportunity
+    </text>
+
+    <defs>
+        <linearGradient id="leftGrad" x1="26" y1="18" x2="156" y2="255" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2674DF"/>
+            <stop offset="1" stop-color="#0D3F91"/>
+        </linearGradient>
+        <linearGradient id="rightGrad" x1="181" y1="105" x2="329" y2="255" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2297EA"/>
+            <stop offset="1" stop-color="#276DD7"/>
+        </linearGradient>
+        <linearGradient id="arrowShade" x1="83" y1="268" x2="219" y2="125" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0B2E70"/>
+            <stop offset="1" stop-color="#57B7FF"/>
+        </linearGradient>
+    </defs>
+</svg>

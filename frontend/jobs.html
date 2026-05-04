@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jobs</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="portalPage" data-page="jobs" onload="initJobsPage()">
+<div class="portalShell">
+    <aside class="portalSidebar">
+        <a href="dashboard.html" class="portalBrand">
+            <img class="brandLogoMark" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+        </a>
+
+        <div class="portalUser">
+            <div id="sidebarUserInitials" class="portalAvatar">HH</div>
+            <div>
+                <p id="sidebarUserName" class="portalUserName">User</p>
+                <p id="sidebarUserRole" class="portalUserRole">Job Seeker</p>
+            </div>
+        </div>
+
+        <nav class="portalNav">
+            <a href="dashboard.html" class="portalNavLink" data-nav="overview">Overview</a>
+            <a href="jobs.html" class="portalNavLink" data-nav="jobs">Jobs</a>
+            <a href="applications.html" class="portalNavLink" data-nav="applications">Applications</a>
+            <a href="notifications.html" class="portalNavLink" data-nav="notifications">Notifications</a>
+            <a href="profile.html" class="portalNavLink" data-nav="profile">Profile</a>
+            <a href="postjob.html" class="portalNavLink recruiterOnly" data-nav="postjob">Post Job</a>
+        </nav>
+
+        <button id="logoutBtn" type="button" class="logoutBtn portalLogout">Log out</button>
+    </aside>
+
+    <main class="portalMain">
+        <header class="portalHeader">
+            <div>
+                <p class="portalLabel">Jobs</p>
+                <h1>Browse Jobs</h1>
+                <p class="subText">Search and explore openings in a dedicated jobs section.</p>
+            </div>
+
+            <div class="portalHeaderMeta">
+                <span id="jobsPageCount" class="metaPill">0 jobs found</span>
+                <span id="roleBadge" class="badge">Job Seeker</span>
+            </div>
+        </header>
+
+        <section class="portalCard formPanel">
+            <div class="jobsFilterGrid">
+                <div class="formGroup">
+                    <label class="formLabel" for="searchTitle">Title</label>
+                    <input id="searchTitle" placeholder="Java Intern">
+                </div>
+                <div class="formGroup">
+                    <label class="formLabel" for="searchLocation">Location</label>
+                    <input id="searchLocation" placeholder="Delhi or Remote">
+                </div>
+                <div class="formGroup">
+                    <label class="formLabel" for="searchCompany">Company</label>
+                    <input id="searchCompany" placeholder="Company name">
+                </div>
+                <div class="formGroup">
+                    <label class="formLabel" for="minSalary">Minimum salary</label>
+                    <input id="minSalary" type="number" placeholder="600000">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="searchBtn" type="button">Search</button>
+                <button id="clearBtn" type="button" class="secondaryBtn">Clear</button>
+                <a href="postjob.html" class="heroActionBtn recruiterOnly">Post Job</a>
+            </div>
+        </section>
+
+        <section class="portalCard">
+            <div id="jobsList" class="jobsGrid"></div>
+        </section>
+    </main>
+</div>
+<script src="script.js?v=21"></script>
+</body>
+</html>

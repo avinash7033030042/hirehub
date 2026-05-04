@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Applications</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="portalPage" data-page="applications" onload="initApplicationsPage()">
+<div class="portalShell">
+    <aside class="portalSidebar">
+        <a href="dashboard.html" class="portalBrand">
+            <img class="brandLogoMark" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+        </a>
+
+        <div class="portalUser">
+            <div id="sidebarUserInitials" class="portalAvatar">HH</div>
+            <div>
+                <p id="sidebarUserName" class="portalUserName">User</p>
+                <p id="sidebarUserRole" class="portalUserRole">Job Seeker</p>
+            </div>
+        </div>
+
+        <nav class="portalNav">
+            <a href="dashboard.html" class="portalNavLink" data-nav="overview">Overview</a>
+            <a href="jobs.html" class="portalNavLink" data-nav="jobs">Jobs</a>
+            <a href="applications.html" class="portalNavLink" data-nav="applications">Applications</a>
+            <a href="notifications.html" class="portalNavLink" data-nav="notifications">Notifications</a>
+            <a href="profile.html" class="portalNavLink" data-nav="profile">Profile</a>
+            <a href="postjob.html" class="portalNavLink recruiterOnly" data-nav="postjob">Post Job</a>
+        </nav>
+
+        <button id="logoutBtn" type="button" class="logoutBtn portalLogout">Log out</button>
+    </aside>
+
+    <main class="portalMain">
+        <header class="portalHeader">
+            <div>
+                <p class="portalLabel">Applications</p>
+                <h1 id="applicationsPageTitle">Applications</h1>
+                <p id="applicationsPageSubtitle" class="subText">Track application activity in its own section.</p>
+            </div>
+
+            <div class="portalHeaderMeta">
+                <span id="applicationsCountLabel" class="metaPill">0 applications</span>
+                <span id="roleBadge" class="badge">Job Seeker</span>
+            </div>
+        </header>
+
+        <section class="portalCard">
+            <div id="applicationsList" class="stackList"></div>
+        </section>
+    </main>
+</div>
+<script src="script.js?v=21"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notifications</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="portalPage" data-page="notifications" onload="initNotificationsPage()">
+<div class="portalShell">
+    <aside class="portalSidebar">
+        <a href="dashboard.html" class="portalBrand">
+            <img class="brandLogoMark" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+        </a>
+
+        <div class="portalUser">
+            <div id="sidebarUserInitials" class="portalAvatar">HH</div>
+            <div>
+                <p id="sidebarUserName" class="portalUserName">User</p>
+                <p id="sidebarUserRole" class="portalUserRole">Job Seeker</p>
+            </div>
+        </div>
+
+        <nav class="portalNav">
+            <a href="dashboard.html" class="portalNavLink" data-nav="overview">Overview</a>
+            <a href="jobs.html" class="portalNavLink" data-nav="jobs">Jobs</a>
+            <a href="applications.html" class="portalNavLink" data-nav="applications">Applications</a>
+            <a href="notifications.html" class="portalNavLink" data-nav="notifications">Notifications</a>
+            <a href="profile.html" class="portalNavLink" data-nav="profile">Profile</a>
+            <a href="postjob.html" class="portalNavLink recruiterOnly" data-nav="postjob">Post Job</a>
+        </nav>
+
+        <button id="logoutBtn" type="button" class="logoutBtn portalLogout">Log out</button>
+    </aside>
+
+    <main class="portalMain">
+        <header class="portalHeader">
+            <div>
+                <p class="portalLabel">Notifications</p>
+                <h1>Notifications</h1>
+                <p class="subText">See all alerts in one dedicated section.</p>
+            </div>
+
+            <div class="portalHeaderMeta">
+                <span id="notificationsCountLabel" class="metaPill">0 notifications</span>
+                <span id="roleBadge" class="badge">Job Seeker</span>
+            </div>
+        </header>
+
+        <section class="portalCard">
+            <div class="sectionHead">
+                <div>
+                    <h2>All Notifications</h2>
+                    <p class="panelIntro">Latest messages and updates from your account.</p>
+                </div>
+                <button id="markAllBtn" type="button" class="secondaryBtn miniBtn">Mark All Read</button>
+            </div>
+
+            <div id="notificationsList" class="stackList"></div>
+        </section>
+    </main>
+</div>
+<script src="script.js?v=21"></script>
+</body>
+</html>

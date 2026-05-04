@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Forgot Password</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body class="authPage authMinimalPage">
+<section class="card authSoloCard">
+    <div class="authLogoBlock">
+        <img class="authLogoImage" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+    </div>
+
+    <div class="authSoloHeader">
+        <h1>Forgot Password</h1>
+    </div>
+
+    <div class="formGroup">
+        <label class="formLabel" for="email">Email</label>
+        <input id="email" type="email" placeholder="you@example.com">
+    </div>
+
+    <button id="sendOtpBtn" type="button" class="fullBtn">Send OTP</button>
+    <p id="otpTimer" class="otpTimer"></p>
+
+    <div id="otpPanel" class="otpPanel">
+        <div class="formGroup">
+            <label class="formLabel" for="otp">OTP</label>
+            <input id="otp" inputmode="numeric" maxlength="6" placeholder="6 digit OTP">
+        </div>
+
+        <div class="formGroup">
+            <label class="formLabel" for="newPassword">New password</label>
+            <div class="passwordField">
+                <input id="newPassword" type="password" placeholder="New password">
+                <button type="button" class="ghostIconBtn passwordToggle" aria-label="Show password" onclick="toggleForgotPassword('newPassword', this)"><span class="eyeIcon"></span></button>
+            </div>
+            <p id="passwordStrength" class="passwordStrength">Use 8+ chars with uppercase, lowercase, number, and special character.</p>
+        </div>
+
+        <div class="formGroup">
+            <label class="formLabel" for="confirmPassword">Confirm password</label>
+            <div class="passwordField">
+                <input id="confirmPassword" type="password" placeholder="Confirm password">
+                <button type="button" class="ghostIconBtn passwordToggle" aria-label="Show password" onclick="toggleForgotPassword('confirmPassword', this)"><span class="eyeIcon"></span></button>
+            </div>
+        </div>
+
+        <button id="resetPasswordBtn" type="button" class="fullBtn">Reset Password</button>
+    </div>
+
+    <p id="forgotMsg" class="subText"></p>
+
+    <div class="authMetaLinks">
+        <a href="login.html">Back to login</a>
+    </div>
+</section>
+
+<script>
+const hostname = window.location.hostname
+const isLocalFrontend = !hostname || ["localhost", "127.0.0.1", "::1"].includes(hostname)
+const API = isLocalFrontend ? "http://localhost:3000/api" : "/api"
+let otpTimerId = null
+let otpExpiresAt = 0
+
+function setMessage(value) {
+    const msgEl = document.getElementById("forgotMsg")
+    if (msgEl) msgEl.textContent = value
+}
+
+function isStrongPassword(password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password)
+}
+
+function toggleForgotPassword(inputId, trigger) {
+    const input = document.getElementById(inputId)
+    if (!input) return
+
+    const showPassword = input.type === "password"
+    input.type = showPassword ? "text" : "password"
+    if (trigger) {
+        trigger.classList.toggle("isVisible", showPassword)
+        trigger.setAttribute("aria-label", showPassword ? "Hide password" : "Show password")
+    }
+}
+
+function updatePasswordStrength() {
+    const password = document.getElementById("newPassword")?.value || ""
+    const label = document.getElementById("passwordStrength")
+    if (!label) return
+
+    if (!password) {
+        label.textContent = "Use 8+ chars with uppercase, lowercase, number, and special character."
+        label.className = "passwordStrength"
+        return
+    }
+
+    if (isStrongPassword(password)) {
+        label.textContent = "Strong password"
+        label.className = "passwordStrength strong"
+    } else {
+        label.textContent = "Weak password: add uppercase, lowercase, number, special character, and use 8+ chars."
+        label.className = "passwordStrength weak"
+    }
+}
+
+function startOtpTimer() {
+    const timerEl = document.getElementById("otpTimer")
+    const sendBtn = document.getElementById("sendOtpBtn")
+    otpExpiresAt = Date.now() + 10 * 60 * 1000
+    if (sendBtn) sendBtn.disabled = true
+    clearInterval(otpTimerId)
+
+    otpTimerId = setInterval(() => {
+        const remaining = Math.max(0, otpExpiresAt - Date.now())
+        const minutes = String(Math.floor(remaining / 60000)).padStart(2, "0")
+        const seconds = String(Math.floor((remaining % 60000) / 1000)).padStart(2, "0")
+
+        if (timerEl) timerEl.textContent = remaining > 0
+            ? `OTP expires in ${minutes}:${seconds}`
+            : "OTP expired. Send OTP again."
+
+        if (remaining <= 0) {
+            clearInterval(otpTimerId)
+            if (sendBtn) sendBtn.disabled = false
+        }
+    }, 1000)
+}
+
+async function sendOtp() {
+    const email = document.getElementById("email")?.value?.trim()?.toLowerCase() || ""
+    if (!email) {
+        setMessage("Enter your email first.")
+        return
+    }
+
+    try {
+        const res = await fetch(`${API}/auth/forgot-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+        })
+        const data = await res.json().catch(() => ({}))
+        setMessage(data.msg || "OTP sent if account exists.")
+        if (res.ok) {
+            document.getElementById("otpPanel").style.display = "grid"
+            startOtpTimer()
+        }
+    } catch {
+        setMessage("Network error. Please try again.")
+    }
+}
+
+async function resetPasswordWithOtp() {
+    const email = document.getElementById("email")?.value?.trim()?.toLowerCase() || ""
+    const otp = document.getElementById("otp")?.value?.trim() || ""
+    const password = document.getElementById("newPassword")?.value || ""
+    const confirmPassword = document.getElementById("confirmPassword")?.value || ""
+
+    if (!email || !otp || !password || !confirmPassword) {
+        setMessage("Email, OTP, new password, and confirm password are required.")
+        return
+    }
+    if (!isStrongPassword(password)) {
+        setMessage("Use a strong password: 8+ chars, uppercase, lowercase, number, and special character.")
+        return
+    }
+    if (password !== confirmPassword) {
+        setMessage("Password and confirm password do not match.")
+        return
+    }
+
+    try {
+        const res = await fetch(`${API}/auth/reset-password-otp`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp, password, confirmPassword })
+        })
+        const data = await res.json().catch(() => ({}))
+        if (res.ok) {
+            setMessage(data.msg || "Password updated. Redirecting to login...")
+            setTimeout(() => {
+                window.location.href = "login.html"
+            }, 1200)
+        } else {
+            setMessage(data.msg || "Password reset failed.")
+        }
+    } catch {
+        setMessage("Network error. Please try again.")
+    }
+}
+
+document.getElementById("sendOtpBtn")?.addEventListener("click", sendOtp)
+document.getElementById("resetPasswordBtn")?.addEventListener("click", resetPasswordWithOtp)
+document.getElementById("newPassword")?.addEventListener("input", updatePasswordStrength)
+</script>
+</body>
+</html>

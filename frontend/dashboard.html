@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Overview</title>
+<link rel="stylesheet" href="style.css?v=22">
+</head>
+<body class="portalPage" data-page="overview" onload="initOverviewPage()">
+<div class="portalShell">
+    <aside class="portalSidebar">
+        <a href="dashboard.html" class="portalBrand">
+            <img class="brandLogoMark" src="assets/hirehub-logo.svg" alt="Hire Hub logo">
+        </a>
+
+        <div class="portalUser">
+            <div id="sidebarUserInitials" class="portalAvatar">HH</div>
+            <div>
+                <p id="sidebarUserName" class="portalUserName">User</p>
+                <p id="sidebarUserRole" class="portalUserRole">Job Seeker</p>
+            </div>
+        </div>
+
+        <nav class="portalNav">
+            <a href="dashboard.html" class="portalNavLink" data-nav="overview">Overview</a>
+            <a href="jobs.html" class="portalNavLink" data-nav="jobs">Jobs</a>
+            <a href="applications.html" class="portalNavLink" data-nav="applications">Applications</a>
+            <a href="notifications.html" class="portalNavLink" data-nav="notifications">Notifications</a>
+            <a href="profile.html" class="portalNavLink" data-nav="profile">Profile</a>
+            <a href="postjob.html" class="portalNavLink recruiterOnly" data-nav="postjob">Post Job</a>
+        </nav>
+
+        <button id="logoutBtn" type="button" class="logoutBtn portalLogout">Log out</button>
+    </aside>
+
+    <main class="portalMain">
+        <header class="portalHeader portalHero">
+            <div>
+                <p class="portalLabel">Workspace</p>
+                <h1 id="dashboardGreeting">Welcome back</h1>
+                <div class="dashboardHeroActions">
+                    <a href="jobs.html" class="heroActionBtn">Jobs</a>
+                    <a href="applications.html" class="heroActionBtn secondaryBtn">Applications</a>
+                    <a href="postjob.html" class="heroActionBtn ghostActionBtn recruiterOnly">Post Job</a>
+                    <a href="profile.html" class="heroActionBtn ghostActionBtn seekerOnly">Resume</a>
+                </div>
+            </div>
+
+            <div class="portalHeaderMeta">
+                <span id="portalDate" class="metaPill">Today</span>
+                <span id="roleBadge" class="badge">Job Seeker</span>
+            </div>
+        </header>
+
+        <section class="overviewStatGrid">
+            <article class="portalCard overviewStatCard">
+                <span class="statLabel">Jobs</span>
+                <strong id="statJobsCount" class="statValue">0</strong>
+                <p id="statJobsMeta" class="statMeta">Available openings</p>
+            </article>
+            <article class="portalCard overviewStatCard">
+                <span class="statLabel">Applications</span>
+                <strong id="statApplicationsCount" class="statValue">0</strong>
+                <p id="statApplicationsMeta" class="statMeta">Activity tracked</p>
+            </article>
+            <article class="portalCard overviewStatCard">
+                <span class="statLabel">Notifications</span>
+                <strong id="statNotificationsCount" class="statValue">0</strong>
+                <p id="statNotificationsMeta" class="statMeta">Unread updates</p>
+            </article>
+            <article class="portalCard overviewStatCard">
+                <span class="statLabel">Resume</span>
+                <strong id="statResumeStatus" class="statValue">Pending</strong>
+                <p id="statResumeMeta" class="statMeta">Profile readiness</p>
+            </article>
+        </section>
+
+        <section class="dashboardFocusGrid">
+            <article class="portalCard focusCard">
+                <div>
+                    <p class="portalLabel">Next Step</p>
+                    <h2 id="nextStepTitle">Complete your profile</h2>
+                </div>
+                <a id="nextStepLink" href="profile.html" class="heroActionBtn">Continue</a>
+            </article>
+
+            <article class="portalCard focusCard">
+                <div>
+                    <p class="portalLabel">Quick Tools</p>
+                    <h2>Shortcuts</h2>
+                </div>
+                <div class="quickToolGrid">
+                    <a href="jobs.html" class="quickTool">Search Jobs</a>
+                    <a href="notifications.html" class="quickTool">Alerts</a>
+                    <a href="postjob.html" class="quickTool recruiterOnly">New Job</a>
+                    <a href="profile.html" class="quickTool seekerOnly">Resume</a>
+                </div>
+            </article>
+        </section>
+
+        <div class="previewGrid">
+            <section class="portalCard">
+                <div class="sectionHead sectionHeadTop">
+                    <div>
+                        <h2>Jobs</h2>
+                    </div>
+                    <a href="jobs.html" class="sectionLink">Open</a>
+                </div>
+                <div id="overviewJobs" class="stackList"></div>
+            </section>
+
+            <section class="portalCard">
+                <div class="sectionHead sectionHeadTop">
+                    <div>
+                        <h2 id="overviewApplicationsTitle">Applications</h2>
+                    </div>
+                    <a href="applications.html" class="sectionLink">Open</a>
+                </div>
+                <div id="overviewApplications" class="stackList"></div>
+            </section>
+
+            <section class="portalCard">
+                <div class="sectionHead sectionHeadTop">
+                    <div>
+                        <h2>Notifications</h2>
+                    </div>
+                    <a href="notifications.html" class="sectionLink">Open</a>
+                </div>
+                <div id="overviewNotifications" class="stackList"></div>
+            </section>
+        </div>
+    </main>
+</div>
+<script src="script.js?v=22"></script>
+</body>
+</html>
