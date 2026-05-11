@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer")
-const https = require("https")
 
 function cleanEnv(value) {
     return String(value || "").trim()
@@ -23,62 +22,6 @@ function createTransporter() {
     })
 }
 
-function sendWithResend(mail) {
-    const apiKey = cleanEnv(process.env.RESEND_API_KEY)
-    if (!apiKey) return null
-
-    const payload = JSON.stringify({
-        from: cleanEnv(process.env.RESEND_FROM) || "Hire Hub <onboarding@resend.dev>",
-        to: Array.isArray(mail.to) ? mail.to : [mail.to],
-        subject: mail.subject,
-        text: mail.text,
-        html: mail.html
-    })
-
-    const requestOptions = {
-        hostname: "api.resend.com",
-        path: "/emails",
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-            "Content-Length": Buffer.byteLength(payload)
-        },
-        timeout: 20000
-    }
-
-    return new Promise((resolve, reject) => {
-        const req = https.request(requestOptions, (res) => {
-            let body = ""
-            res.on("data", (chunk) => {
-                body += chunk
-            })
-            res.on("end", () => {
-                let data = {}
-                try {
-                    data = body ? JSON.parse(body) : {}
-                } catch {
-                    data = { message: body }
-                }
-
-                if (res.statusCode >= 200 && res.statusCode < 300) {
-                    resolve(data)
-                    return
-                }
-
-                reject(new Error(data.message || data.error || `Resend API failed with status ${res.statusCode}`))
-            })
-        })
-
-        req.on("timeout", () => {
-            req.destroy(new Error("Resend API request timeout"))
-        })
-        req.on("error", reject)
-        req.write(payload)
-        req.end()
-    })
-}
-
 async function sendEmail(toOrOptions, token) {
     const appUrl = cleanEnv(process.env.APP_URL) || "http://localhost:8080"
     const from = cleanEnv(process.env.MAIL_FROM || process.env.SMTP_USER || process.env.EMAIL_USER) || "Hire Hub <no-reply@hirehub.local>"
@@ -92,20 +35,10 @@ async function sendEmail(toOrOptions, token) {
         : toOrOptions
 
     const mail = { from, ...options }
-    const resendResult = sendWithResend(mail)
-    if (resendResult) {
-        try {
-            return await resendResult
-        } catch (err) {
-            console.error("Email send failed with Resend:", err.message)
-            return { failed: true, provider: "resend", error: err.message }
-        }
-    }
-
     const transporter = createTransporter()
 
     if (!transporter) {
-        console.error("Email not sent: set RESEND_API_KEY for Render free, or SMTP_USER/SMTP_PASS for SMTP.")
+        console.error("Email not sent: SMTP_USER/SMTP_PASS are missing. Set them in backend/.env locally or Render environment variables in production.")
         return { skipped: true }
     }
 

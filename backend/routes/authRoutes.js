@@ -57,7 +57,6 @@ function safeEmailError(error) {
     return String(error || "")
         .replace(new RegExp(escapeRegExp(process.env.SMTP_PASS || process.env.EMAIL_PASS || "NO_SMTP_PASS_SET"), "g"), "[hidden]")
         .replace(new RegExp(escapeRegExp(process.env.SMTP_USER || process.env.EMAIL_USER || "NO_SMTP_USER_SET"), "g"), "[email]")
-        .replace(new RegExp(escapeRegExp(process.env.RESEND_API_KEY || "NO_RESEND_API_KEY_SET"), "g"), "[hidden]")
         .slice(0, 220)
 }
 
@@ -205,8 +204,8 @@ router.post("/forgot-password", async (req, res) => {
         })
         if (emailResult?.skipped || emailResult?.failed) {
             const message = emailResult?.skipped
-                ? "OTP email not sent. Set RESEND_API_KEY in Render, or use a paid Render plan for Gmail SMTP."
-                : `OTP email not sent. Email provider error: ${safeEmailError(emailResult.error)}`
+                ? "OTP email not sent. Set SMTP_USER and SMTP_PASS in Render environment variables, then redeploy."
+                : `OTP email not sent. Gmail SMTP error: ${safeEmailError(emailResult.error)}`
             return res.status(500).json({
                 msg: message
             })
