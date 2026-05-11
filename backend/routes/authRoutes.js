@@ -49,6 +49,17 @@ function isStrongPassword(password) {
     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(String(password || ""))
 }
 
+function escapeRegExp(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+function safeEmailError(error) {
+    return String(error || "")
+        .replace(new RegExp(escapeRegExp(process.env.SMTP_PASS || process.env.EMAIL_PASS || "NO_SMTP_PASS_SET"), "g"), "[hidden]")
+        .replace(new RegExp(escapeRegExp(process.env.SMTP_USER || process.env.EMAIL_USER || "NO_SMTP_USER_SET"), "g"), "[email]")
+        .slice(0, 220)
+}
+
 router.post("/register",async(req,res)=>{
     try{
         const {name,password,role}=req.body
@@ -194,7 +205,7 @@ router.post("/forgot-password", async (req, res) => {
         if (emailResult?.skipped || emailResult?.failed) {
             const message = emailResult?.skipped
                 ? "OTP email not sent. Set SMTP_USER and SMTP_PASS in Render environment variables, then redeploy."
-                : "OTP email not sent. Check Render logs for the Gmail SMTP error, then verify SMTP_USER/SMTP_PASS."
+                : `OTP email not sent. Gmail SMTP error: ${safeEmailError(emailResult.error)}`
             return res.status(500).json({
                 msg: message
             })
