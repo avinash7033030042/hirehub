@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Reset Password</title>
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body class="authPage">
 <div class="authShell">
@@ -14,7 +14,10 @@
     <section class="card authCard">
         <h2>🔑 Set New Password</h2>
         <p class="subText">Password should be at least 6 characters.</p>
-        <input id="newPassword" type="password" placeholder="New Password">
+        <div class="passwordField">
+            <input id="newPassword" type="password" placeholder="New Password">
+            <button type="button" class="ghostIconBtn passwordToggle" aria-label="Show password" onclick="toggleResetPassword('newPassword', this)"><span class="eyeIcon"></span></button>
+        </div>
         <button id="resetBtn" type="button">✅ Reset Password</button>
         <p><a href="login.html">⬅️ Back to Login</a></p>
         <p id="resetMsg" class="subText"></p>
@@ -25,6 +28,18 @@
 const hostname = window.location.hostname
 const isLocalFrontend = !hostname || ["localhost", "127.0.0.1", "::1"].includes(hostname)
 const API = isLocalFrontend ? "http://localhost:3000/api" : "/api"
+
+function toggleResetPassword(inputId, trigger) {
+    const input = document.getElementById(inputId)
+    if (!input) return
+
+    const showPassword = input.type === "password"
+    input.type = showPassword ? "text" : "password"
+    if (trigger) {
+        trigger.classList.toggle("isVisible", showPassword)
+        trigger.setAttribute("aria-label", showPassword ? "Hide password" : "Show password")
+    }
+}
 
 function getTokenFromQuery() {
     const params = new URLSearchParams(window.location.search)

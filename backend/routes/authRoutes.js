@@ -192,8 +192,11 @@ router.post("/forgot-password", async (req, res) => {
             `
         })
         if (emailResult?.skipped || emailResult?.failed) {
+            const message = emailResult?.skipped
+                ? "OTP email not sent. Set SMTP_USER and SMTP_PASS in Render environment variables, then redeploy."
+                : "OTP email not sent. Check Render logs for the Gmail SMTP error, then verify SMTP_USER/SMTP_PASS."
             return res.status(500).json({
-                msg: "OTP email not sent. Configure Gmail SMTP in backend/.env and restart server."
+                msg: message
             })
         }
         const response = { msg: "If account exists, OTP sent to email" }
